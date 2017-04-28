@@ -5,20 +5,17 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "Kruskal.h"
 
 using namespace std;
 
-string filePath = "";		//todo: hardcode or get input?
+string filePath = "C:\\Users\\Kaylee\\Desktop\\mst.txt";
 
 
 int main()
 {
-	int tempInt;
+	double tempDouble;
 	string currentInput;
-	string filePath;
-
-	cout << "Enter the input file:";	//todo: word better
-	cin >> filePath;
 
 	ifstream inFile(filePath, ios::binary);
 	if (inFile.fail())
@@ -30,22 +27,28 @@ int main()
 	}
 
 	inFile >> currentInput;		//todo: verify that it's an int?
-	tempInt = atoi(currentInput.c_str());		
+	tempDouble = atoi(currentInput.c_str());		
 
 	//todo: refering to specific spots in adjArrays: location = (nValue * row) + col
-	int nValue = tempInt;						//todo: is the matrix thing fixed??
-	double* adjMatrix = new double[nValue * nValue];		//todo: fix the stupid matrix declaration thing
+	int nValue = tempDouble;
+	double* adjMatrix = new double[nValue * nValue];		
 	string* nodeNamesMatrix = new string[nValue];
+
+	Kruskal KrsukalAlgorithm(nValue);
 
 	for (int pos = 0; pos < nValue; pos++)			//todo: make sure this works
 	{	//read in the names of the nodes and put them in the names array
 		inFile >> nodeNamesMatrix[pos];
 	}
 
-	for (int row = 0; row <= (nValue * nValue); row++)
+	for (int pos = 0; pos < (nValue * nValue); pos++)
 	{	//read in the adjancy matrix
-			inFile >> adjMatrix[row];			//todo: breaks here
+		inFile >> currentInput;
+		tempDouble = atof(currentInput.c_str());		//convert text to double
+		adjMatrix[pos] = tempDouble;
 	}
+
+	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
 
 	//todo: read in the file (can use <<)
 	//todo: create adjancy matrix
@@ -53,6 +56,6 @@ int main()
 	//todo: output kruskal
 	//todo: run through with prim
 	//todo: output prim
-    return 0;
+    return 0;										//todo: crashes here, fix at some point
 }
 
