@@ -26,8 +26,8 @@ int main()
 		exit(1);
 	}
 
-	inFile >> currentInput;		//todo: verify that it's an int?
-	tempDouble = atoi(currentInput.c_str());		
+	inFile >> currentInput;
+	tempDouble = atoi(currentInput.c_str());		//convert the first thing in the file to a number
 
 	//todo: refering to specific spots in adjArrays: location = (nValue * row) + col
 	int nValue = tempDouble;
@@ -36,7 +36,7 @@ int main()
 
 	Kruskal KrsukalAlgorithm(nValue);
 
-	for (int pos = 0; pos < nValue; pos++)			//todo: make sure this works
+	for (int pos = 0; pos < nValue; pos++)
 	{	//read in the names of the nodes and put them in the names array
 		inFile >> nodeNamesMatrix[pos];
 	}
@@ -50,12 +50,9 @@ int main()
 
 	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
 
-	//todo: read in the file (can use <<)
-	//todo: create adjancy matrix
-	//todo: run through with kruskal 
-	//todo: output kruskal
+
 	//todo: run through with prim
 	//todo: output prim
-    return 0;										//todo: crashes here, fix at some point
+    return 0;
 }
 

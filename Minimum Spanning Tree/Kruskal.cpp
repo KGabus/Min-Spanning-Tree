@@ -1,3 +1,8 @@
+// Author	: Kaylee Gabus
+// Date		: 5-1-17
+// Kruskal.cpp	: Uses Kruskal's algorithm to find the minimum spanning tree of a graph given an array of node names and an adjacency matrix.
+
+
 #include "stdafx.h"
 #include "Kruskal.h"
 #include <iostream>
@@ -13,37 +18,22 @@ Kruskal::Kruskal(int size)
 	outputArray = new string[arrayDim];
 }
 
-void Kruskal::makeSet(string insertString)
-{
-	insertString += ",";
-	makeAndAddSet(insertString);
-}
-
-int Kruskal::findSet(string searchString)
-{
-	searchString += ",";
-	return searchSets(searchString);
-}
-
-void Kruskal::unionSets(int resultPos, int removePos)
-{
-	combineSets(resultPos, removePos);
-}
-
 void Kruskal::runKruskal(string* nameArray, double* adjArray)
-{
+{	//runs the Kruskal algorith and outputs results to the console
 	string vertex1 = "";
 	string vertex2 = "";
 
 	int v1Set;
 	int v2Set;
 
-	for (int pos = 0; pos < arrayDim; pos++)
-		makeAndAddSet(nameArray[pos] + ",");		//the comma seperates values in the string so they can be uniquely identified
+	for (int pos = 0; pos < arrayDim; pos++)				//make a set for every vertex
+		makeAndAddSet(nameArray[pos]);		
 
-	int numberOfEdges = createSortedEdgeArray(adjArray);
+	int numberOfEdges = createSortedEdgeArray(adjArray);	//sort the edges by weight
 	for (int pos = 0; pos < numberOfEdges; pos++)
-	{
+	{	//for every edge, check to see if it's vertex has been added to a set
+		//if the verticies are not in the same set, take the union of the sets
+		//also keeps an ongoing sum of the total weight of the graph
 		vertex1 = edgeArray[pos].vertex1;
 		vertex2 = edgeArray[pos].vertex2;
 
@@ -52,30 +42,29 @@ void Kruskal::runKruskal(string* nameArray, double* adjArray)
 
 		if (v1Set != v2Set)
 		{
-			combineSets(v1Set, v2Set);
+			unionSets(v1Set, v2Set);
 			addToOutputArray(edgeArray[pos]);
 			pathSum += edgeArray[pos].weight;
 		}
-	}	//todo: i think after this point it just needs to print
+	}
 
 	sortOutputArray();
 
-	cout << "Total Path Weights Sum: " << pathSum << endl;
+	cout << "Total Path Weights' Sum: " << pathSum << endl;
 	for (int pos = 0; pos <= outputArrayIndex; pos++)
 		cout << outputArray[pos] << endl;
-
-
-	cout << "it didn't crash so there's that.";
 }
 
 void Kruskal::makeAndAddSet(string insertString)
-{
-	setArray[itemsInSetArray + 1] = insertString;
+{	//creates a set containing the passed in value and adds it to the set array
+	//seperates set elements with a comma
+	setArray[itemsInSetArray + 1] = insertString + ",";
 	itemsInSetArray++;
 }
 
 int Kruskal::searchSets(string searchString)
-{
+{	//locates the index indicating the set that contain the search term
+	//returns -1 if the term is not found
 	size_t location;
 	for (int pos = itemsInSetArray; pos >= 0; pos--)
 	{
@@ -87,7 +76,7 @@ int Kruskal::searchSets(string searchString)
 	return -1;			//if the string was not found, return -1
 }
 
-void Kruskal::combineSets(int set1, int set2)		//todo: this is untested
+void Kruskal::unionSets(int set1, int set2)
 {	//takes the union of two sets and places it in the lower indexed spot in the set array
 	//everything beneath the higher set index is moved up on spot and decrements count of array items
 	if (set1 < set2)
@@ -112,13 +101,14 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 {	//generates the array of edges for the adjacancy array
 	//only has non 0 edges
 	//sorted in ascending order
+	//returns the number of non 0 edges
 	int edgesInArray = 0;
 
 	for (int row = 0; row < arrayDim; row++)
 		for (int col = 0; col < arrayDim; col++)
 		{	//for every non zero item in adjArray, create an edge and store it in edgeArray
-			Edge newEdge;// = new Edge;
-			newEdge.vertex1 = setArray[row];				//todo: i think this is right??
+			Edge newEdge;
+			newEdge.vertex1 = setArray[row];
 			newEdge.vertex2 = setArray[col];
 			newEdge.weight = adjArray[(arrayDim * row) + col];
 			
@@ -130,7 +120,7 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 			}
 		}
 
-	for (int loop = 0; loop < edgesInArray - 1; loop++)
+	for (int loop = 0; loop < edgesInArray - 1; loop++)	//todo: potentially replace with insertion sort
 	{	//bubble sort the edges to get them in ascending order according to weight
 		for (int pos = 0; pos < edgesInArray - 1; pos++)
 		{	//sort the edges in ascending order
@@ -154,13 +144,13 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 }
 
 void Kruskal::addToOutputArray(Edge node)
-{
+{	//formats the output for the algorithm
 	outputArray[outputArrayIndex] = node.vertex1.substr(0, node.vertex1.length() - 1) + "-" + node.vertex2.substr(0, node.vertex2.length() - 1) + ":\t" + to_string(node.weight);
 	outputArrayIndex++;
 }
 
-void Kruskal::sortOutputArray()
-{	//uses bubble sort to alphabetaticly sort the output edges		
+void Kruskal::sortOutputArray()	//todo: potentially replace with insertion sort
+{	//uses bubble sort to alphabeticaly sort the output edges		
 	string temp;
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
