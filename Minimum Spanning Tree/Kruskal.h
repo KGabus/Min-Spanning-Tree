@@ -25,6 +25,7 @@ public:
 
 private:
 	int arrayDim;
+	int pathSum = 0;
 	int outputArrayIndex = 0;
 	int itemsInSetArray = -1;
 	string* setArray;// = new string[arrayDim];

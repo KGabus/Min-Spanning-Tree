@@ -54,11 +54,13 @@ void Kruskal::runKruskal(string* nameArray, double* adjArray)
 		{
 			combineSets(v1Set, v2Set);
 			addToOutputArray(edgeArray[pos]);
+			pathSum += edgeArray[pos].weight;
 		}
 	}	//todo: i think after this point it just needs to print
 
 	sortOutputArray();
 
+	cout << "Total Path Weights Sum: " << pathSum << endl;
 	for (int pos = 0; pos <= outputArrayIndex; pos++)
 		cout << outputArray[pos] << endl;
 
@@ -158,22 +160,7 @@ void Kruskal::addToOutputArray(Edge node)
 }
 
 void Kruskal::sortOutputArray()
-{	//uses bubble sort to alphabetaticly sort the output edges
-	//string currentFirstVertex = "";
-
-	//for (int loop = 0; loop < outputArrayIndex - 1; loop++)
-	//	for (int pos = 0; pos < outputArrayIndex - 1; pos++)
-	//		if (edgesInTree[pos].vertex1 > edgesInTree[pos + 1].vertex1)
-	//		{	//sort the first vertex
-	//			Edge temp = edgesInTree[pos];
-
-	//			edgesInTree[pos].vertex1 = edgesInTree[pos + 1].vertex1;
-	//			edgesInTree[pos].vertex2 = edgesInTree[pos + 1].vertex2;
-	//			edgesInTree[pos].weight = edgesInTree[pos + 1].weight;
-
-	//			edgesInTree[pos + 1] = temp;
-	//		}
-		
+{	//uses bubble sort to alphabetaticly sort the output edges		
 	string temp;
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
