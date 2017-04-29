@@ -1,0 +1,9 @@
+﻿  Minimum Spanning Tree.cpp
+Minimum Spanning Tree.cpp(32): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Generating code
+  1 of 154 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Release\Minimum Spanning Tree.exe
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Release\Minimum Spanning Tree.pdb (Full PDB)
