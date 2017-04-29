@@ -2,7 +2,7 @@
 // Date		: 5-1-17
 // Kruskal.cpp	: Uses Kruskal's algorithm to find the minimum spanning tree of a graph given an array of node names and an adjacency matrix.
 
-
+//todo: the symetric array matrix might be slowing things down. Toss the second half of the adj matrix?
 #include "stdafx.h"
 #include "Kruskal.h"
 #include <iostream>
@@ -23,8 +23,8 @@ void Kruskal::runKruskal(string* nameArray, double* adjArray)
 	string vertex1 = "";
 	string vertex2 = "";
 
-	int v1Set;
-	int v2Set;
+	int v1SetIndex;
+	int v2SetIndex;
 
 	for (int pos = 0; pos < arrayDim; pos++)				//make a set for every vertex
 		makeAndAddSet(nameArray[pos]);		
@@ -37,12 +37,12 @@ void Kruskal::runKruskal(string* nameArray, double* adjArray)
 		vertex1 = edgeArray[pos].vertex1;
 		vertex2 = edgeArray[pos].vertex2;
 
-		v1Set = searchSets(vertex1);
-		v2Set = searchSets(vertex2);
+		v1SetIndex = searchSets(vertex1);
+		v2SetIndex = searchSets(vertex2);
 
-		if (v1Set != v2Set)
+		if (v1SetIndex != v2SetIndex)
 		{
-			unionSets(v1Set, v2Set);
+			unionSets(v1SetIndex, v2SetIndex);
 			addToOutputArray(edgeArray[pos]);
 			pathSum += edgeArray[pos].weight;
 		}
