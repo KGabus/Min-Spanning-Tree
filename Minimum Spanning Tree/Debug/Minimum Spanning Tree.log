@@ -1,4 +1,7 @@
-﻿  Prim.cpp
+﻿  stdafx.cpp
+  Prim.cpp
+  Minimum Spanning Tree.cpp
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\minimum spanning tree\minimum spanning tree\minimum spanning tree.cpp(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Kruskal.cpp
 c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\minimum spanning tree\minimum spanning tree\kruskal.cpp(47): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
   Generating Code...

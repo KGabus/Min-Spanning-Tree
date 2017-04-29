@@ -104,7 +104,7 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 	//returns the number of non 0 edges
 	int edgesInArray = 0;
 
-	for (int row = 0; row < arrayDim; row++)
+	for (int row = 0; row < arrayDim; row++)		//todo: if the columns are bounded by a different vari that gets increased after every row, we would only read in the lower left half of the matrix, eliminating duplicates in the edges array
 		for (int col = 0; col < arrayDim; col++)
 		{	//for every non zero item in adjArray, create an edge and store it in edgeArray
 			Edge newEdge;
@@ -128,13 +128,13 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 			{	//if the weight isn't 0
 				if (edgeArray[pos].weight > edgeArray[pos + 1].weight)
 				{	//swap the two edges
-					Edge temp = edgeArray[pos];
+					Edge edge = edgeArray[pos];
 
 					edgeArray[pos].vertex1 = edgeArray[pos + 1].vertex1;
 					edgeArray[pos].vertex2 = edgeArray[pos + 1].vertex2;
 					edgeArray[pos].weight = edgeArray[pos + 1].weight;
 
-					edgeArray[pos + 1] = temp;
+					edgeArray[pos + 1] = edge;
 				}
 			}
 		}
@@ -151,13 +151,13 @@ void Kruskal::addToOutputArray(Edge node)
 
 void Kruskal::sortOutputArray()	//todo: potentially replace with insertion sort
 {	//uses bubble sort to alphabeticaly sort the output edges		
-	string temp;
+	string swap;		//todo: rename this
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
 			if (outputArray[pos] > outputArray[pos + 1])
 			{	//sort the second vertex
-				temp = outputArray[pos];
+				swap = outputArray[pos];
 				outputArray[pos] = outputArray[pos + 1];
-				outputArray[pos + 1] = temp;
+				outputArray[pos + 1] = swap;
 			}
 }

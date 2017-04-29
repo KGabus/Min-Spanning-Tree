@@ -14,7 +14,7 @@ string filePath = "C:\\Users\\Kaylee\\Desktop\\mst.txt";
 
 int main()
 {
-	double tempDouble;
+	double inputDouble;
 	string currentInput;
 
 	ifstream inFile(filePath, ios::binary);
@@ -27,10 +27,10 @@ int main()
 	}
 
 	inFile >> currentInput;
-	tempDouble = atoi(currentInput.c_str());		//convert the first thing in the file to a number
+	inputDouble = atoi(currentInput.c_str());		//convert the first thing in the file to a number
 
 	//todo: refering to specific spots in adjArrays: location = (nValue * row) + col
-	int nValue = tempDouble;
+	int nValue = inputDouble;
 	double* adjMatrix = new double[nValue * nValue];		
 	string* nodeNamesMatrix = new string[nValue];
 
@@ -44,8 +44,8 @@ int main()
 	for (int pos = 0; pos < (nValue * nValue); pos++)
 	{	//read in the adjancy matrix
 		inFile >> currentInput;
-		tempDouble = atof(currentInput.c_str());		//convert text to double
-		adjMatrix[pos] = tempDouble;
+		inputDouble = atof(currentInput.c_str());		//convert text to double
+		adjMatrix[pos] = inputDouble;
 	}
 
 	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
