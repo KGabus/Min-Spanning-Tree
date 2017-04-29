@@ -5,7 +5,8 @@ using namespace std;
 
 struct Node
 {
-	string key = "";
+	string name = "";
+	int key = 0;			//the key is actually the row/column index for the adjArray
 	double weight = 0;
 	int parent = 0;
 };
@@ -23,7 +24,7 @@ private:
 	string* outputArray;
 	string* nameArray;
 
-	int findInHeap(string searchKey);
+	int findInHeap(int searchKey);
 	void minHeapify(int startingPos);
 	void startHeap(string* nameArray);
 	Node extractMin();

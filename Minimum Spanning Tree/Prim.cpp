@@ -11,17 +11,40 @@ Prim::Prim(int nodeCount)
 
 void Prim::runPrim(string * nameArray, double * adjArray)
 {	//todo: nothing in runPrim is actually written yet
+	int nodeIndex;
+	int weightFound;
+	
+	Node node1;
+	Node node2;
+
+	
 	while (heapSize != 0)
 	{
-		//get the smallest weight
-		//for each adj node
-			//if the weight is non zero and we've just found a lower weight to get to the second node
-				//adjust the second node's parent and weight values
-				//run heapify (recursive, will involve math to figure out)
+		node1 = extractMin();
+		for (int col = 0; col < arrayDim; col++)
+		{	//finds all adj nodes
+			weightFound = adjArray[node1.key * arrayDim + col];
+			if (weightFound > 0)
+			{	//if there is a weight in adjArray
+				nodeIndex = findInHeap(col);		//find the other node of the edge
+				if (nodeIndex != -1 && weightFound < minHeap[nodeIndex].weight)
+				{	//if the node was found and the new weight is less than its old weight, adjust the node in the heap
+					minHeap[nodeIndex].weight = weightFound;
+					minHeap[nodeIndex].parent = node1.key;
+					
+					//todo: figure out how to deal with heapify-ing the heap
+
+				}
+			}
+		}
 	}
+
+	//somehow use what remains after that^ to get and output the edges used
+	//don't forget the weights
+	//and sorting the outputs
 }
 
-int Prim::findInHeap(string searchKey)
+int Prim::findInHeap(int searchKey)
 {	//returns the index of the key in the heap
 	//if it isn't in the heap, returns -1
 	for (int pos = 1; pos <= heapSize; pos++)
@@ -60,12 +83,15 @@ void Prim::startHeap(string* nameArray)
 {
 	for (int pos = 1; pos < arrayDim; pos++)
 	{
-		minHeap[pos].key = nameArray[pos - 1];
+		minHeap[pos].name = nameArray[pos - 1];
+		minHeap[pos].key = pos - 1;
 		minHeap[pos].weight = DBL_MAX;
 		minHeap[pos].parent = -1;
 
 		heapSize++;
 	}
+
+	minHeap[1].weight = 0;		//set the first item's weight to 0 as a starting point for finding graph edges
 }
 
 Node Prim::extractMin()
