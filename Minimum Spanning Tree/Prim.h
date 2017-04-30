@@ -1,3 +1,7 @@
+// Author	: Kaylee Gabus
+// Date		: 5-1-17
+// Prim.h	: Header file for Prim.cpp
+
 #pragma once
 #include <string>
 
@@ -24,7 +28,6 @@ private:
 	int outputArrayIndex;
 	Node* minHeap;
 	string* outputArray;
-//	string* nameArray;
 
 	int findInHeap(int searchKey);
 	void minHeapify(int startingPos);

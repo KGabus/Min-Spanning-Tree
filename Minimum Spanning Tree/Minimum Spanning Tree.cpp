@@ -1,5 +1,10 @@
+// Author	: Kaylee Gabus
+// Date		: 5-1-17
 // Minimum Spanning Tree.cpp : Defines the entry point for the console application.
-//
+	//builds the minimum spanning tree for a graph using both Kruskal's and Prim's algorithms
+	//outputs the tree as an alphabetized list of verticies and their weights
+	//requires input in the form of number of verticies, vertex names, adjacency matrix
+
 
 #include "stdafx.h"
 #include <iostream>
@@ -8,13 +13,17 @@
 #include "Kruskal.h"
 #include "Prim.h"
 
+//todo: switch bubble for insertion sort if I'm feeling it
 using namespace std;
 
 string filePath = "C:\\Users\\Kaylee\\Desktop\\mst.txt";
 
 
 int main()
-{
+{	//reads in the number of nodes to instantiate the two algoriths objects
+	//reads in the vertex names and stores in a single dimentional array
+	//reads in the adjacency matrix as a single dimentional array
+		//items are accessed as row index * number of nodes + column index
 	double inputDouble;
 	string currentInput;
 
@@ -30,12 +39,12 @@ int main()
 	inFile >> currentInput;
 	inputDouble = atoi(currentInput.c_str());		//convert the first thing in the file to a number
 
-	//todo: refering to specific spots in adjArrays: location = (nValue * row) + col
+	//instantiate the arrays and objects 
 	int nValue = inputDouble;
 	double* adjMatrix = new double[nValue * nValue];		
 	string* nodeNamesMatrix = new string[nValue];
 
-	Kruskal KrsukalAlgorithm(nValue);
+	Kruskal KrsukalAlgorithm(nValue);			
 	Prim PrimAlgorithm(nValue);
 
 	for (int pos = 0; pos < nValue; pos++)
@@ -53,8 +62,6 @@ int main()
 	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
 	PrimAlgorithm.runPrim(nodeNamesMatrix, adjMatrix);
 
-	//todo: run through with prim
-	//todo: output prim
     return 0;
 }
 

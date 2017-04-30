@@ -2,7 +2,6 @@
 // Date		: 5-1-17
 // Kruskal.cpp	: Uses Kruskal's algorithm to find the minimum spanning tree of a graph given an array of node names and an adjacency matrix.
 
-//todo: the symetric array matrix might be slowing things down. Toss the second half of the adj matrix?
 #include "stdafx.h"
 #include "Kruskal.h"
 #include <iostream>
@@ -19,7 +18,7 @@ Kruskal::Kruskal(int size)
 }
 
 void Kruskal::runKruskal(string* nameArray, double* adjArray)
-{	//runs the Kruskal algorith and outputs results to the console
+{	//runs the Kruskal algorithm and outputs results to the console
 	string vertex1 = "";
 	string vertex2 = "";
 
@@ -57,19 +56,20 @@ void Kruskal::runKruskal(string* nameArray, double* adjArray)
 
 void Kruskal::makeAndAddSet(string insertString)
 {	//creates a set containing the passed in value and adds it to the set array
+	//sets are implemented as strings
 	//seperates set elements with a comma
 	setArray[itemsInSetArray + 1] = insertString + ",";
 	itemsInSetArray++;
 }
 
 int Kruskal::searchSets(string searchString)
-{	//locates the index indicating the set that contain the search term
+{	//locates the index indicating the set that contains the search term
 	//returns -1 if the term is not found
 	size_t location;
 	for (int pos = itemsInSetArray; pos >= 0; pos--)
 	{
 		location = setArray[pos].find(searchString);
-		if (location != std::string::npos)				//if the string is found in the set, return the location of the set
+		if (location != std::string::npos)				//if the string is found in the set, return the index of the set
 			return pos;	
 	}
 
@@ -79,6 +79,7 @@ int Kruskal::searchSets(string searchString)
 void Kruskal::unionSets(int set1, int set2)
 {	//takes the union of two sets and places it in the lower indexed spot in the set array
 	//everything beneath the higher set index is moved up on spot and decrements count of array items
+	//set1 and set2 are the index of the respective sets
 	if (set1 < set2)
 	{
 		setArray[set1] += setArray[set2];
@@ -99,20 +100,20 @@ void Kruskal::unionSets(int set1, int set2)
 
 int Kruskal::createSortedEdgeArray(double * adjArray)
 {	//generates the array of edges for the adjacancy array
+	//only reads the bottom left half of adjArray
 	//only has non 0 edges
 	//sorted in ascending order
 	//returns the number of non 0 edges
 	int edgesInArray = 0;
-//	int colBound = 0;
 
-	for (int row = 0; row < arrayDim; row++)		//todo: if the columns are bounded by a different vari that gets increased after every row, we would only read in the lower left half of the matrix, eliminating duplicates in the edges array
+	for (int row = 0; row < arrayDim; row++)
+	{
 		for (int col = 0; col < row; col++)
 		{	//for every non zero item in adjArray, create an edge and store it in edgeArray
 			Edge newEdge;
 			newEdge.vertex1 = setArray[row];
 			newEdge.vertex2 = setArray[col];
 			newEdge.weight = adjArray[(arrayDim * row) + col];
-			
 
 			if (newEdge.weight > 0)
 			{	//only write the edges that are non-zero
@@ -120,6 +121,8 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 				edgesInArray++;
 			}
 		}
+	}
+		
 
 	for (int loop = 0; loop < edgesInArray - 1; loop++)	//todo: potentially replace with insertion sort
 	{	//bubble sort the edges to get them in ascending order according to weight
@@ -146,8 +149,17 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 
 void Kruskal::addToOutputArray(Edge node)
 {	//formats the output for the algorithm
-	//since the lower left half of adjMatrix is used the second vertex is alphebetically first
-	outputArray[outputArrayIndex] = node.vertex2.substr(0, node.vertex1.length() - 1) + "-" + node.vertex1.substr(0, node.vertex2.length() - 1) + ":\t" + to_string(node.weight);
+	//output strings are of the form "x-y	n" where x and y are node names and n is the weight between them
+
+	string node1 = node.vertex1.substr(0, node.vertex1.length() - 1);
+	string node2 = node.vertex2.substr(0, node.vertex2.length() - 1);
+	string outputString;
+
+	if (node1 < node2)
+		outputString = node1 + "-" + node2 + "\t";
+	else outputString = node2 + "-" + node1 + "\t";
+
+	outputArray[outputArrayIndex] = outputString + to_string(node.weight);
 	outputArrayIndex++;
 }
 

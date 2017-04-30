@@ -1,3 +1,7 @@
+// Author	: Kaylee Gabus
+// Date		: 5-1-17
+// Kruskal.h	: Header file for Kruskal.cpp
+
 #pragma once
 #include <string>
 

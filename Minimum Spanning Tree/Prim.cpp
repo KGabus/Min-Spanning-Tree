@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Prim.h"
 #include <iostream>
-
+//todo: clean and comment prim
 Prim::Prim(int nodeCount)
 {
 	arrayDim = nodeCount;
@@ -11,23 +11,23 @@ Prim::Prim(int nodeCount)
 }
 
 void Prim::runPrim(string * nameArray, double * adjArray)
-{	//todo: nothing in runPrim is actually written yet
+{	//runs the Prim algorithm and outputs results to the console
 	int nodeIndex;
 	int weightFound;
-	int arrayPos;
+	int arrayIndex;
 	
 	Node node1;
 	Node node2;
 
 	startHeap(nameArray);
 
-	while (heapSize != 0)
-	{
+	while (heapSize > 0)
+	{	//while the heap isn't empty
 		node1 = extractMin();
 		for (int col = 0; col <= arrayDim; col++)
 		{	//finds all adj nodes
-			arrayPos = node1.key;								//heap is 1 indexed while adjArray is 0 indexed
-			weightFound = adjArray[arrayPos * arrayDim + col];
+			arrayIndex = node1.key;
+			weightFound = adjArray[arrayIndex * arrayDim + col];
 			if (weightFound > 0)
 			{	//if there is a weight in adjArray
 				nodeIndex = findInHeap(col);		//find the other node of the edge
@@ -36,7 +36,6 @@ void Prim::runPrim(string * nameArray, double * adjArray)
 					minHeap[nodeIndex].weight = weightFound;
 					minHeap[nodeIndex].parent = node1.key;
 					
-					//todo: figure out how to deal with heapify-ing the heap
 					for (nodeIndex; nodeIndex >= 1; nodeIndex--)
 					minHeapify(nodeIndex);
 
@@ -56,11 +55,6 @@ void Prim::runPrim(string * nameArray, double * adjArray)
 	cout << "Total Path Weights' Sum: " << pathSum << endl; 
 	for (int pos = 0; pos < outputArrayIndex; pos++)		//print the output
 		cout << outputArray[pos] << endl;
-
-	//somehow use what remains after that^ to get and output the edges used
-	//don't forget the weights
-	//and sorting the outputs
-
 }
 
 int Prim::findInHeap(int searchKey)
@@ -95,7 +89,6 @@ void Prim::minHeapify(int startingPos)
 		minHeap[currentMinPos] = node;
 		minHeapify(currentMinPos + 1);
 	}
-
 }
 
 void Prim::startHeap(string* nameArray)
@@ -114,7 +107,7 @@ void Prim::startHeap(string* nameArray)
 }
 
 Node Prim::extractMin()
-{	//todo: this needs tested
+{
 	Node extractedNode = minHeap[1]; 
 	minHeap[1] = minHeap[heapSize];
 	minHeap[heapSize] = extractedNode;
@@ -136,14 +129,11 @@ void Prim::addToOutputArray(string* nameArray, int heapIndex)
 	else outputString = node2 + "-" + node1 + "\t";
 
 	outputArray[outputArrayIndex] = outputString + to_string(minHeap[heapIndex].weight);
-		//= node.vertex2.substr(0, node.vertex1.length() - 1) + "-" + node.vertex1.substr(0, node.vertex2.length() - 1) + ":\t" + to_string(node.weight);
 	outputArrayIndex++;
-	
 }
 
 void Prim::sortOutputArray()
-{
-	//uses bubble sort to alphabeticaly sort the output edges		
+{	//uses bubble sort to alphabeticaly sort the output edges		
 	string swap;		//todo: rename this
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
