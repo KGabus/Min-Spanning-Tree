@@ -7,8 +7,8 @@ struct Node
 {
 	string name = "";
 	int key = 0;			//the key is actually the row/column index for the adjArray
-	double weight = 0;
 	int parent = 0;
+	double weight = 0;
 };
 
 class Prim
@@ -20,12 +20,16 @@ public:
 private:
 	int arrayDim;
 	int heapSize;
+	int pathSum = 0;
+	int outputArrayIndex;
 	Node* minHeap;
 	string* outputArray;
-	string* nameArray;
+//	string* nameArray;
 
 	int findInHeap(int searchKey);
 	void minHeapify(int startingPos);
 	void startHeap(string* nameArray);
 	Node extractMin();
+	void addToOutputArray(string* nameArray, int heapIndex);
+	void sortOutputArray();
 };

@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include "Kruskal.h"
+#include "Prim.h"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ int main()
 	string* nodeNamesMatrix = new string[nValue];
 
 	Kruskal KrsukalAlgorithm(nValue);
+	Prim PrimAlgorithm(nValue);
 
 	for (int pos = 0; pos < nValue; pos++)
 	{	//read in the names of the nodes and put them in the names array
@@ -49,7 +51,7 @@ int main()
 	}
 
 	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
-
+	PrimAlgorithm.runPrim(nodeNamesMatrix, adjMatrix);
 
 	//todo: run through with prim
 	//todo: output prim

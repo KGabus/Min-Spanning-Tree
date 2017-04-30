@@ -90,7 +90,7 @@ void Kruskal::unionSets(int set1, int set2)
 	{
 		setArray[set2] += setArray[set1];
 
-		for (int pos = set1; pos <= itemsInSetArray; pos++)
+		for (int pos = set1; pos < itemsInSetArray; pos++)
 			setArray[pos] = setArray[pos + 1];
 	}
 	
@@ -103,9 +103,10 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 	//sorted in ascending order
 	//returns the number of non 0 edges
 	int edgesInArray = 0;
+//	int colBound = 0;
 
 	for (int row = 0; row < arrayDim; row++)		//todo: if the columns are bounded by a different vari that gets increased after every row, we would only read in the lower left half of the matrix, eliminating duplicates in the edges array
-		for (int col = 0; col < arrayDim; col++)
+		for (int col = 0; col < row; col++)
 		{	//for every non zero item in adjArray, create an edge and store it in edgeArray
 			Edge newEdge;
 			newEdge.vertex1 = setArray[row];
@@ -145,7 +146,8 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 
 void Kruskal::addToOutputArray(Edge node)
 {	//formats the output for the algorithm
-	outputArray[outputArrayIndex] = node.vertex1.substr(0, node.vertex1.length() - 1) + "-" + node.vertex2.substr(0, node.vertex2.length() - 1) + ":\t" + to_string(node.weight);
+	//since the lower left half of adjMatrix is used the second vertex is alphebetically first
+	outputArray[outputArrayIndex] = node.vertex2.substr(0, node.vertex1.length() - 1) + "-" + node.vertex1.substr(0, node.vertex2.length() - 1) + ":\t" + to_string(node.weight);
 	outputArrayIndex++;
 }
 
