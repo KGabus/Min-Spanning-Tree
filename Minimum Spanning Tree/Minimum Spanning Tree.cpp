@@ -13,7 +13,6 @@
 #include "Kruskal.h"
 #include "Prim.h"
 
-//todo: switch bubble for insertion sort if I'm feeling it
 using namespace std;
 
 string filePath = "C:\\Users\\Kaylee\\Desktop\\mst.txt";

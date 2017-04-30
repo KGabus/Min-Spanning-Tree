@@ -123,8 +123,7 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 		}
 	}
 		
-
-	for (int loop = 0; loop < edgesInArray - 1; loop++)	//todo: potentially replace with insertion sort
+	for (int loop = 0; loop < edgesInArray - 1; loop++)
 	{	//bubble sort the edges to get them in ascending order according to weight
 		for (int pos = 0; pos < edgesInArray - 1; pos++)
 		{	//sort the edges in ascending order
@@ -150,7 +149,6 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 void Kruskal::addToOutputArray(Edge node)
 {	//formats the output for the algorithm
 	//output strings are of the form "x-y	n" where x and y are node names and n is the weight between them
-
 	string node1 = node.vertex1.substr(0, node.vertex1.length() - 1);
 	string node2 = node.vertex2.substr(0, node.vertex2.length() - 1);
 	string outputString;
@@ -163,15 +161,15 @@ void Kruskal::addToOutputArray(Edge node)
 	outputArrayIndex++;
 }
 
-void Kruskal::sortOutputArray()	//todo: potentially replace with insertion sort
-{	//uses bubble sort to alphabeticaly sort the output edges		
-	string swap;		//todo: rename this
+void Kruskal::sortOutputArray()	
+{	//uses bubble sort to alphabeticaly sort the output strings		
+	string swapString;
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
 			if (outputArray[pos] > outputArray[pos + 1])
-			{	//sort the second vertex
-				swap = outputArray[pos];
+			{
+				swapString = outputArray[pos];
 				outputArray[pos] = outputArray[pos + 1];
-				outputArray[pos + 1] = swap;
+				outputArray[pos + 1] = swapString;
 			}
 }

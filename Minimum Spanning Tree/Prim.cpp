@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Prim.h"
 #include <iostream>
-//todo: clean and comment prim
+
 Prim::Prim(int nodeCount)
 {
 	arrayDim = nodeCount;
@@ -22,7 +22,10 @@ void Prim::runPrim(string * nameArray, double * adjArray)
 	startHeap(nameArray);
 
 	while (heapSize > 0)
-	{	//while the heap isn't empty
+	{	//while the heap isn't empty, extract the vertex assoc. with the lowest weight
+		//find all the nodes adj to it
+		//if the weight between the two nodes is less than the weight currently assoc. with the adj. node
+		//adjust the adj node's weight and parent and heapify the heap
 		node1 = extractMin();
 		for (int col = 0; col <= arrayDim; col++)
 		{	//finds all adj nodes
@@ -36,7 +39,7 @@ void Prim::runPrim(string * nameArray, double * adjArray)
 					minHeap[nodeIndex].weight = weightFound;
 					minHeap[nodeIndex].parent = node1.key;
 					
-					for (nodeIndex; nodeIndex >= 1; nodeIndex--)
+					for (nodeIndex; nodeIndex > 0; nodeIndex--)
 					minHeapify(nodeIndex);
 
 				}
@@ -69,7 +72,7 @@ int Prim::findInHeap(int searchKey)
 }
 
 void Prim::minHeapify(int startingPos)
-{	//todo: this needs tested
+{	//recurisvely restores the min heap property of the heap 
 	int leftChildPos = 2 * startingPos;
 	int rightChildPos = 2 * startingPos + 1;
 	int currentMinPos;
@@ -92,7 +95,7 @@ void Prim::minHeapify(int startingPos)
 }
 
 void Prim::startHeap(string* nameArray)
-{
+{	//fills the heap with nodes and sets the heap size
 	for (int pos = 1; pos <= arrayDim; pos++)
 	{
 		minHeap[pos].name = nameArray[pos - 1];
@@ -107,7 +110,9 @@ void Prim::startHeap(string* nameArray)
 }
 
 Node Prim::extractMin()
-{
+{	//extracts the lowest weight item (always first spot in array)
+	//swaps the first and last items in the heap
+	//reduces the heap size and calls minHeapify
 	Node extractedNode = minHeap[1]; 
 	minHeap[1] = minHeap[heapSize];
 	minHeap[heapSize] = extractedNode;
@@ -134,13 +139,13 @@ void Prim::addToOutputArray(string* nameArray, int heapIndex)
 
 void Prim::sortOutputArray()
 {	//uses bubble sort to alphabeticaly sort the output edges		
-	string swap;		//todo: rename this
+	string swapString;
 	for (int loop = 0; loop < outputArrayIndex - 1; loop++)
 		for (int pos = 0; pos < outputArrayIndex - 1; pos++)
 			if (outputArray[pos] > outputArray[pos + 1])
-			{	//sort the second vertex
-				swap = outputArray[pos];
+			{
+				swapString = outputArray[pos];
 				outputArray[pos] = outputArray[pos + 1];
-				outputArray[pos + 1] = swap;
+				outputArray[pos + 1] = swapString;
 			}
 }
