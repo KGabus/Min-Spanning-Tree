@@ -58,17 +58,19 @@ void Kruskal::makeAndAddSet(string insertString)
 {	//creates a set containing the passed in value and adds it to the set array
 	//sets are implemented as strings
 	//seperates set elements with a comma
-	setArray[itemsInSetArray + 1] = insertString + ",";
+	setArray[itemsInSetArray + 1] = "," + insertString + ",";
 	itemsInSetArray++;
 }
 
 int Kruskal::searchSets(string searchString)
 {	//locates the index indicating the set that contains the search term
 	//returns -1 if the term is not found
+	//the commas ensure the index of AB isn't returned when looking for A or B
+	string searchTerm = "," + searchString + ",";
 	size_t location;
 	for (int pos = itemsInSetArray; pos >= 0; pos--)
 	{
-		location = setArray[pos].find(searchString);
+		location = setArray[pos].find(searchTerm);
 		if (location != std::string::npos)				//if the string is found in the set, return the index of the set
 			return pos;	
 	}

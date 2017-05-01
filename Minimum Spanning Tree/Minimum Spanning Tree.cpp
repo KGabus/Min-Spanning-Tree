@@ -15,7 +15,7 @@
 
 using namespace std;
 
-string filePath = "C:\\Users\\Kaylee\\Desktop\\mst.txt";
+string filePath = "";			//<--------------------------------------------------------------------set file path here
 
 
 int main()
