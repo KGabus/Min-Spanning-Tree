@@ -1,1 +1,4 @@
-﻿
+﻿  Kruskal.cpp
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\minimum spanning tree\minimum spanning tree\kruskal.cpp(46): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Debug\Minimum Spanning Tree.exe
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Debug\Minimum Spanning Tree.pdb (Full PDB)

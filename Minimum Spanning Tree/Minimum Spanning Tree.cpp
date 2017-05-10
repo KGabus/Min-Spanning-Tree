@@ -15,7 +15,7 @@
 
 using namespace std;
 
-string filePath = "";			//<--------------------------------------------------------------------set file path here
+string filePath = "C:\\Users\\Kaylee\\Desktop\\mst test.txt";			//<--------------------------------------------------------------------set file path here
 
 
 int main()
@@ -58,7 +58,7 @@ int main()
 		adjMatrix[pos] = inputDouble;
 	}
 
-	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
+//	KrsukalAlgorithm.runKruskal(nodeNamesMatrix, adjMatrix);
 	PrimAlgorithm.runPrim(nodeNamesMatrix, adjMatrix);
 
     return 0;

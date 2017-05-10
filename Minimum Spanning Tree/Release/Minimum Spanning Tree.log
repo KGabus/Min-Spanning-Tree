@@ -1,1 +1,13 @@
-﻿
+﻿  stdafx.cpp
+  Kruskal.cpp
+Kruskal.cpp(46): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  Minimum Spanning Tree.cpp
+Minimum Spanning Tree.cpp(42): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Prim.cpp
+Prim.cpp(33): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+Prim.cpp(54): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  Generating code
+  All 241 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Release\Minimum Spanning Tree.exe
+  Minimum Spanning Tree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Minimum Spanning Tree\Release\Minimum Spanning Tree.pdb (Full PDB)

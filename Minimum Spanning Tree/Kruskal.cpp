@@ -66,7 +66,7 @@ int Kruskal::searchSets(string searchString)
 {	//locates the index indicating the set that contains the search term
 	//returns -1 if the term is not found
 	//the commas ensure the index of AB isn't returned when looking for A or B
-	string searchTerm = "," + searchString + ",";
+	string searchTerm = searchString;
 	size_t location;
 	for (int pos = itemsInSetArray; pos >= 0; pos--)
 	{
@@ -151,8 +151,8 @@ int Kruskal::createSortedEdgeArray(double * adjArray)
 void Kruskal::addToOutputArray(Edge node)
 {	//formats the output for the algorithm
 	//output strings are of the form "x-y	n" where x and y are node names and n is the weight between them
-	string node1 = node.vertex1.substr(0, node.vertex1.length() - 1);
-	string node2 = node.vertex2.substr(0, node.vertex2.length() - 1);
+	string node1 = node.vertex1.substr(1, node.vertex1.length() - 2);
+	string node2 = node.vertex2.substr(1, node.vertex2.length() - 2);
 	string outputString;
 
 	if (node1 < node2)
